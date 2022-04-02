@@ -1,7 +1,7 @@
-#Uno Project
+# Uno Project
 This is my attempt on creating CLI based UNO game.
 
-##Working
+## Working
 - The program deals 7 card each to 4 players after creating and shuffling the deck.
 - Then, a card is turned and shown as previous card.
 - The game starts from player 1.
@@ -13,7 +13,7 @@ This is my attempt on creating CLI based UNO game.
 - Pulling pile is specified but is not functional currently.
 - Repeated by other 3 players similarly.
 
-##Things to Add
+## Things to Add
 - Special condition for +4 and suitable penalty.
 - Allow users to pull card from pull pile when no suitable cards to play.
 - Let users specify number of players from 2 to 6
