@@ -12,8 +12,6 @@
 #         card = self.pull.pop()
 #         Players.add_card(card)
 from players import Players
-from cards import Cards
-from subprocess import call
 import os
 
 

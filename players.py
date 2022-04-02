@@ -57,3 +57,6 @@ class Players:
 
 	def card_exists(self, previous_card):
 		pass
+
+	def pull_card(self):
+		pass
