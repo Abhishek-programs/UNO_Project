@@ -17,6 +17,7 @@ This is my attempt on creating CLI based UNO game.
 - Special condition for +4 and suitable penalty.
 - Allow users to pull card from pull pile when no suitable cards to play.
 - Let users specify number of players from 2 to 6
+- Use Sockets to turn it into multiplayer
 - More...
 
 ### Finally, attempt to create API and turn it to GUI

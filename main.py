@@ -9,11 +9,11 @@ def create_cards():
 	for color in ["red", "blue", "green", "yellow"]:
 		for number in range(1, 10):
 			deck.append(Cards(number, color, None))
-		for ability in ["Skip", "+2", "Reverse"]:
-			deck.append(Cards(color=color, ability=ability))
+		# for ability in ["Skip", "+2", "Reverse"]:
+		# 	deck.append(Cards(color=color, ability=ability))
 
-	for special_ability in 2 * ["+4", "Wild"]:
-		deck.append(Cards(ability=special_ability))
+	# for special_ability in 2 * ["+4", "Wild"]:
+	# 	deck.append(Cards(ability=special_ability))
 
 	return deck
 

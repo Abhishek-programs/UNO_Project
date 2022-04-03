@@ -11,6 +11,8 @@
 #     def pull_card(self):
 #         card = self.pull.pop()
 #         Players.add_card(card)
+from time import sleep
+
 from players import Players
 import os
 
@@ -27,25 +29,37 @@ class Game:
 
 	def play(self):
 		print("Start the Game")
-		self.player1.print_cards(self.previous_card)
-		self.previous_card = self.player1.play_card(self.previous_card)
+		while self.win():
+			for _ in [self.player1, self.player2, self.player3, self.player4]:
+				self.start_the_game(_)
+		print("Game Over")
+
+	def start_the_game(self, players):
+		players.print_cards(self.previous_card)
+		self.previous_card, self.pull_deck = players.start(self.previous_card, self.pull_deck)
 		self.discard_deck.append(self.previous_card)
+		players.print_cards(self.previous_card)
+		sleep(3)
 		clearConsole()
-		self.player2.print_cards(self.previous_card)
-		self.previous_card = self.player2.play_card(self.previous_card)
-		self.discard_deck.append(self.previous_card)
-		clearConsole()
-		self.player3.print_cards(self.previous_card)
-		self.previous_card = self.player3.play_card(self.previous_card)
-		self.discard_deck.append(self.previous_card)
-		clearConsole()
-		self.player4.print_cards(self.previous_card)
-		self.previous_card = self.player4.play_card(self.previous_card)
-		self.discard_deck.append(self.previous_card)
-		clearConsole()
-		print(self.previous_card.display_card())
-		for _ in self.discard_deck:
-			print(_.display_card())
+
+	def win(self):
+		if len(self.player1.cards) == 0:
+			print("Player 1 wins")
+			return False
+		elif len(self.player2.cards) == 0:
+			print("Player 2 wins")
+			return False
+		elif len(self.player3.cards) == 0:
+			print("Player 3 wins")
+			return False
+		elif len(self.player4.cards) == 0:
+			print("Player 4 wins")
+			return False
+		else:
+			return True
+	# print(self.previous_card.display_card())
+	# for _ in self.discard_deck:
+	# 	print(_.display_card())
 
 
 # for _ in self.pull_deck:
