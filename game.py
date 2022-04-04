@@ -1,18 +1,5 @@
-# class Deck:
-#     def __init__(self, pull, discard):
-#         self.pull = pull
-#         self.discard = discard
-#
-#     def discard_card(self, number):
-#         card = self.cards[number]
-#         Players.remove_card(card)
-#         self.discard.append(card)
-#
-#     def pull_card(self):
-#         card = self.pull.pop()
-#         Players.add_card(card)
 from time import sleep
-
+from collections import deque
 from players import Players
 import os
 
@@ -26,12 +13,22 @@ class Game:
 		self.pull_deck = pull_deck
 		self.previous_card = discard
 		self.discard_deck = [self.previous_card]
+		self.players = deque([self.player1, self.player2, self.player3, self.player4])
+		self.turn = "clock"
 
 	def play(self):
 		print("Start the Game")
-		while self.win():
-			for _ in [self.player1, self.player2, self.player3, self.player4]:
-				self.start_the_game(_)
+		while not self.win():
+			if self.previous_card.ability == "Reverse":
+				self.reverse()
+			next_player = self.next_player()
+			if self.previous_card.ability == "Skip":
+				next_player = self.next_player()
+			if self.previous_card.ability == "+2":
+				next_player.pull_card(self.pull_deck)
+				next_player.pull_card(self.pull_deck)
+				next_player = self.next_player()
+			self.start_the_game(next_player)
 		print("Game Over")
 
 	def start_the_game(self, players):
@@ -42,21 +39,35 @@ class Game:
 		sleep(3)
 		clearConsole()
 
+	def next_player(self):
+		if self.turn == "clock":
+			self.players.rotate(-1)
+			return self.players[-1]
+		else:
+			self.players.rotate(1)
+			return self.players[-1]
+
+	def reverse(self):
+		if self.turn == "clock":
+			self.turn = "counter"
+		else:
+			self.turn = "clock"
+
 	def win(self):
 		if len(self.player1.cards) == 0:
 			print("Player 1 wins")
-			return False
+			return True
 		elif len(self.player2.cards) == 0:
 			print("Player 2 wins")
-			return False
+			return True
 		elif len(self.player3.cards) == 0:
 			print("Player 3 wins")
-			return False
+			return True
 		elif len(self.player4.cards) == 0:
 			print("Player 4 wins")
-			return False
-		else:
 			return True
+		else:
+			return False
 	# print(self.previous_card.display_card())
 	# for _ in self.discard_deck:
 	# 	print(_.display_card())

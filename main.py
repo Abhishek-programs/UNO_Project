@@ -9,11 +9,11 @@ def create_cards():
 	for color in ["red", "blue", "green", "yellow"]:
 		for number in range(1, 10):
 			deck.append(Cards(number, color, None))
-		# for ability in ["Skip", "+2", "Reverse"]:
-		# 	deck.append(Cards(color=color, ability=ability))
+		for ability in ["Skip", "+2", "Reverse"]:
+			deck.append(Cards(color=color, ability=ability))
 
-	# for special_ability in 2 * ["+4", "Wild"]:
-	# 	deck.append(Cards(ability=special_ability))
+	for special_ability in 2 * ["+4", "Wild"]:
+		deck.append(Cards(ability=special_ability))
 
 	return deck
 
@@ -29,6 +29,10 @@ def divide_cards():
 		d.append(cards.pop(0))
 
 	initial_discard = cards.pop(0)
+	while initial_discard.ability in ["+4", "Wild"]:
+		cards.append(initial_discard)
+		initial_discard = cards.pop(0)
+
 	return a, b, c, d, initial_discard, cards
 
 

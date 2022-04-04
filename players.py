@@ -17,7 +17,7 @@ class Players:
 		if option == "p":
 			return self.play_card(previous_card, pull_deck), pull_deck
 		elif option == "t":
-			self.cards.append(pull_deck.pop())  # Pulling card from the deck
+			self.pull_card(pull_deck)
 			self.print_cards(previous_card)
 			option = input("Skip(s)?")
 			if option == 's':
@@ -74,3 +74,7 @@ class Players:
 				card.ability == previous.ability and card.ability is not None):
 			return True
 		return False
+
+	def pull_card(self, pull_deck):
+		self.cards.append(pull_deck.pop())  # Pulling card from the deck
+

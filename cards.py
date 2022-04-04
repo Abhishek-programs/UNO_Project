@@ -1,6 +1,8 @@
 from termcolor import colored
 import colorama
+
 colorama.init()
+
 
 class Cards:
 	def __init__(self, number=None, color="grey", ability=None):
