@@ -15,13 +15,13 @@ class Players:
 	def start(self, previous_card, pull_deck):
 		option = input("Do You want to Play(p) or Take(t) a Card")
 		if option == "p":
-			return self.play_card(previous_card, pull_deck), pull_deck
+			return self.play_card(previous_card, pull_deck), pull_deck, False
 		elif option == "t":
 			self.pull_card(pull_deck)
 			self.print_cards(previous_card)
 			option = input("Skip(s)?")
 			if option == 's':
-				return previous_card, pull_deck
+				return previous_card, pull_deck, True
 			else:
 				return self.start(previous_card, pull_deck)
 		else:
@@ -77,4 +77,3 @@ class Players:
 
 	def pull_card(self, pull_deck):
 		self.cards.append(pull_deck.pop())  # Pulling card from the deck
-

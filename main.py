@@ -44,7 +44,3 @@ player_d = Players("Player4", d)
 
 game = Game(player_a, player_b, player_c, player_d, remaining_cards, discard)
 game.play()
-
-# print("Deck Cards:")
-# for _ in remaining_cards:
-#     print(_.display_card())

@@ -15,25 +15,36 @@ class Game:
 		self.discard_deck = [self.previous_card]
 		self.players = deque([self.player1, self.player2, self.player3, self.player4])
 		self.turn = "clock"
+		self.skipped = False
 
 	def play(self):
 		print("Start the Game")
 		while not self.win():
-			if self.previous_card.ability == "Reverse":
-				self.reverse()
-			next_player = self.next_player()
-			if self.previous_card.ability == "Skip":
+			if not self.skipped:
+				if self.previous_card.ability == "Reverse":
+					self.reverse()
 				next_player = self.next_player()
-			if self.previous_card.ability == "+2":
-				next_player.pull_card(self.pull_deck)
-				next_player.pull_card(self.pull_deck)
+				if self.previous_card.ability == "Skip":
+					next_player = self.next_player()
+				if self.previous_card.ability == "+2":
+					next_player.pull_card(self.pull_deck)
+					next_player.pull_card(self.pull_deck)
+					next_player = self.next_player()
+				if self.previous_card.ability == "+4":
+					next_player.pull_card(self.pull_deck)
+					next_player.pull_card(self.pull_deck)
+					next_player.pull_card(self.pull_deck)
+					next_player.pull_card(self.pull_deck)
+					next_player = self.next_player()
+			else:
 				next_player = self.next_player()
+				self.skipped = False
 			self.start_the_game(next_player)
 		print("Game Over")
 
 	def start_the_game(self, players):
 		players.print_cards(self.previous_card)
-		self.previous_card, self.pull_deck = players.start(self.previous_card, self.pull_deck)
+		self.previous_card, self.pull_deck, self.skipped = players.start(self.previous_card, self.pull_deck)
 		self.discard_deck.append(self.previous_card)
 		players.print_cards(self.previous_card)
 		sleep(3)
@@ -68,13 +79,6 @@ class Game:
 			return True
 		else:
 			return False
-	# print(self.previous_card.display_card())
-	# for _ in self.discard_deck:
-	# 	print(_.display_card())
-
-
-# for _ in self.pull_deck:
-# 	print(_.display_card())
 
 
 clearConsole = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
